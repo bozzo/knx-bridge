@@ -1,0 +1,65 @@
+#
+#    Copyright 2020 Boris Barnier <bozzo@users.noreply.github.com>
+#
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+#
+#        http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: knx-router
+  name: knx-router
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: knx-router
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: knx-router
+      name: knx-router
+    spec:
+      containers:
+        - env:
+            - name: GATEWAY_ADDRESS
+              value: "192.168.12.1"
+            - name: GATEWAY_PORT
+              value: "3671"
+            - name: MULTICAST_ADDRESS
+              value: "224.0.23.12"
+            - name: MULTICAST_PORT
+              value: "3671"
+            - name: PROMETHEUS_PORT
+              value: "13671"
+            - name: LOG_LEVEL
+              value: "info"
+            #- name: LOG_LEVEL
+            #  value: "debug"
+            #- name: LOG_FORMAT
+            #  value: "json"
+            #- name: LOG_FORMAT
+            #  value: "text"
+          image: zbozzo/knx-router:latest
+          name: knx-router
+          ports:
+            - containerPort: 13671
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 512Mi
+      restartPolicy: Always
