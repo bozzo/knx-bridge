@@ -13,6 +13,23 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 #
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: knx-router
+  name: knx-router-data
+data:
+  GATEWAY_ADDRESS: "192.168.12.1"
+  GATEWAY_PORT: "3671"
+  MULTICAST_ADDRESS: "224.0.23.12"
+  MULTICAST_PORT: "3671"
+  PROMETHEUS_PORT: "13671"
+  LOG_LEVEL: "info"
+  #LOG_LEVEL: "debug"
+  #LOG_FORMAT: "json"
+  #LOG_FORMAT: "text"
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -32,25 +49,9 @@ spec:
       name: knx-router
     spec:
       containers:
-        - env:
-            - name: GATEWAY_ADDRESS
-              value: "192.168.12.1"
-            - name: GATEWAY_PORT
-              value: "3671"
-            - name: MULTICAST_ADDRESS
-              value: "224.0.23.12"
-            - name: MULTICAST_PORT
-              value: "3671"
-            - name: PROMETHEUS_PORT
-              value: "13671"
-            - name: LOG_LEVEL
-              value: "info"
-            #- name: LOG_LEVEL
-            #  value: "debug"
-            #- name: LOG_FORMAT
-            #  value: "json"
-            #- name: LOG_FORMAT
-            #  value: "text"
+        - envFrom:
+            - configMapRef:
+                name: knx-router-data
           image: zbozzo/knx-router:latest
           name: knx-router
           ports:
