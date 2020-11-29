@@ -1,6 +1,7 @@
 # knx-router 
 
-[![Build Status](https://travis-ci.com/bozzo/knx-router.svg?branch=main)](https://travis-ci.com/bozzo/knx-router)
+![Go](https://github.com/bozzo/knx-router/workflows/Go/badge.svg)
+![Docker](https://github.com/bozzo/knx-router/workflows/Docker/badge.svg)
 
 Router between KNX gateway and multicast.
 
