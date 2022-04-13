@@ -13,7 +13,7 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 #
-FROM golang:1.17.6 AS builder
+FROM golang:1.18.1 AS builder
 
 # Add Maintainer Info
 LABEL maintainer="Boris Barnier <bozzo@users.noreply.github.com>"
