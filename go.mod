@@ -18,7 +18,7 @@ module github.com/bozzo/knx-router
 go 1.16
 
 require (
-	github.com/prometheus/client_golang v1.12.0
+	github.com/prometheus/client_golang v1.13.0
 	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.6.1 // indirect
 	github.com/vapourismo/knx-go v0.0.0-20201122213738-75fe09ace330
